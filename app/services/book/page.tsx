@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense, useRef } from "react";
+import { useState, Suspense, useRef, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -230,7 +230,7 @@ function Step3({ onBack, onNext }: { onBack: () => void; onNext: () => void }) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState("");
   const [otp, setOtp] = useState(["", "", "", ""]);
-  
+
   const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleRequestOtp = () => {
@@ -274,10 +274,10 @@ function Step3({ onBack, onNext }: { onBack: () => void; onNext: () => void }) {
             <div className={`w-full flex items-center border ${error ? 'border-red-500' : 'border-gray-200'} rounded-xl overflow-hidden mb-2 shadow-sm bg-white`}>
               <div className="flex items-center gap-2 px-4 py-3.5 border-r border-gray-200 bg-gray-50/50">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" className="w-5 h-auto rounded-[2px] shadow-sm shrink-0">
-                  <path d="M0 0h60v40H0z" fill="#fff"/>
-                  <path d="M0 0h60v13.3H0z" fill="#FF9933"/>
-                  <path d="M0 26.7h60V40H0z" fill="#138808"/>
-                  <circle cx="30" cy="20" r="4.5" fill="#000080"/>
+                  <path d="M0 0h60v40H0z" fill="#fff" />
+                  <path d="M0 0h60v13.3H0z" fill="#FF9933" />
+                  <path d="M0 26.7h60V40H0z" fill="#138808" />
+                  <circle cx="30" cy="20" r="4.5" fill="#000080" />
                 </svg>
                 <span className="text-gray-600 font-bold text-[13px] whitespace-nowrap">+91</span>
               </div>
@@ -292,12 +292,12 @@ function Step3({ onBack, onNext }: { onBack: () => void; onNext: () => void }) {
                 className="flex-1 px-4 py-3.5 outline-none text-sm text-gray-800 placeholder:text-gray-400 font-medium"
               />
             </div>
-            
+
             <div className="w-full h-5 mb-3">
               {error && <p className="text-red-500 text-xs font-bold text-left">{error}</p>}
             </div>
 
-            <button 
+            <button
               onClick={handleRequestOtp}
               className="w-full bg-[#8B1E4F] text-white py-3.5 rounded-xl font-bold hover:bg-[#52002B] transition-all shadow-md active:scale-[0.98]">
               Request OTP
@@ -318,8 +318,8 @@ function Step3({ onBack, onNext }: { onBack: () => void; onNext: () => void }) {
               </p>
               <div className="flex items-center justify-center gap-2">
                 <span className="text-[#8B1E4F] text-sm font-bold">+91 {phoneNumber}</span>
-                <button 
-                  onClick={() => setStep("login")} 
+                <button
+                  onClick={() => setStep("login")}
                   className="text-gray-400 hover:text-gray-800 transition-colors"
                 >
                   <Edit2 className="w-3.5 h-3.5" />
@@ -345,8 +345,8 @@ function Step3({ onBack, onNext }: { onBack: () => void; onNext: () => void }) {
             </div>
 
             <button
-               onClick={onNext}
-               className="w-full bg-[#8B1E4F] text-white py-3.5 rounded-xl font-bold hover:bg-[#52002B] transition-all shadow-md active:scale-[0.98]">
+              onClick={onNext}
+              className="w-full bg-[#8B1E4F] text-white py-3.5 rounded-xl font-bold hover:bg-[#52002B] transition-all shadow-md active:scale-[0.98]">
               Verify & Confirm Booking
             </button>
 
@@ -444,6 +444,12 @@ function BookingPageInner() {
   const pet = searchParams.get("pet") || "Dog";
 
   const [step, setStep] = useState(1);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [step]);
   const TOTAL = 3;
 
   const heroImage = serviceImages[serviceName] ?? (pet === "Cat" ? DEFAULT_CAT : DEFAULT_DOG);
@@ -519,7 +525,9 @@ function BookingPageInner() {
             </div>
 
             {/* Form content */}
-            <div className="px-8 md:px-14 pb-12">
+            {/* <div className="px-8 md:px-14 pb-12"> */}
+            {/* Form content */}
+            <div className="pl-16 pr-8 md:pl-32 md:pr-14 pb-12">
               {step === 1 && <Step1 serviceName={serviceName} onNext={() => setStep(2)} />}
               {step === 2 && <Step2 onBack={() => setStep(1)} onNext={() => setStep(3)} />}
               {step === 3 && <Step3 onBack={() => setStep(2)} onNext={() => setStep(4)} />}
