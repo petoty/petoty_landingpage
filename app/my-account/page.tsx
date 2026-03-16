@@ -60,14 +60,7 @@ const sidebarItems: SidebarItem[] = [
     badge: null,
     badgeColor: "",
   },
-  {
-    id: "medical",
-    label: "My Medical Records",
-    subLabel: "Check your EMR",
-    icon: FileText,
-    badge: null,
-    badgeColor: "",
-  },
+
   {
     id: "notifications",
     label: "Notifications",
@@ -109,19 +102,19 @@ function initials(name: string, phone: string) {
 /* ── page ── */
 export default function MyAccountPage() {
   const [activeSection, setActiveSection] = useState("profile");
-  const [isEditing, setIsEditing]         = useState(false);
-  const [phone, setPhone]                 = useState("");      // from localStorage
+  const [isEditing, setIsEditing] = useState(false);
+  const [phone, setPhone] = useState("");      // from localStorage
   const [completionPct, setCompletionPct] = useState(0);
 
   const [form, setForm] = useState({
-    fullName:        "",
-    email:           "",
-    mobile:          "",          // pre-filled from login
-    dob:             "",
-    gender:          "",
+    fullName: "",
+    email: "",
+    mobile: "",          // pre-filled from login
+    dob: "",
+    gender: "",
     alternateMobile: "",
-    address:         "",
-    pincode:         "",
+    address: "",
+    pincode: "",
   });
 
   /* read phone from localStorage on mount */
@@ -137,7 +130,7 @@ export default function MyAccountPage() {
   /* recompute completion % whenever form changes */
   useEffect(() => {
     const fields = Object.values(form);
-    const filled  = fields.filter((v) => v.trim() !== "").length;
+    const filled = fields.filter((v) => v.trim() !== "").length;
     setCompletionPct(Math.round((filled / fields.length) * 100));
   }, [form]);
 
@@ -196,24 +189,22 @@ export default function MyAccountPage() {
             {/* nav */}
             <nav className="py-2">
               {sidebarItems.map((item) => {
-                const Icon     = item.icon;
+                const Icon = item.icon;
                 const isActive = activeSection === item.id;
                 return (
                   <button
                     key={item.id}
                     onClick={() => setActiveSection(item.id)}
-                    className={`w-full flex items-start gap-4 px-5 py-4 text-left transition-all duration-200 group border-l-[3px] ${
-                      isActive
-                        ? "bg-pink-50 border-[#8B1E4F]"
-                        : "border-transparent hover:bg-gray-50 hover:border-[#D4A0B8]"
-                    }`}
+                    className={`w-full flex items-start gap-4 px-5 py-4 text-left transition-all duration-200 group border-l-[3px] ${isActive
+                      ? "bg-pink-50 border-[#8B1E4F]"
+                      : "border-transparent hover:bg-gray-50 hover:border-[#D4A0B8]"
+                      }`}
                   >
                     <div
-                      className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all ${
-                        isActive
-                          ? "bg-[#8B1E4F] text-white shadow-sm"
-                          : "bg-pink-50 text-[#8B1E4F] group-hover:bg-pink-100"
-                      }`}
+                      className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all ${isActive
+                        ? "bg-[#8B1E4F] text-white shadow-sm"
+                        : "bg-pink-50 text-[#8B1E4F] group-hover:bg-pink-100"
+                        }`}
                     >
                       <Icon className="w-4 h-4" />
                     </div>
@@ -233,9 +224,8 @@ export default function MyAccountPage() {
                       </p>
                     </div>
                     <ChevronRight
-                      className={`w-4 h-4 shrink-0 mt-1 transition-colors ${
-                        isActive ? "text-[#8B1E4F]" : "text-gray-300 group-hover:text-[#8B1E4F]"
-                      }`}
+                      className={`w-4 h-4 shrink-0 mt-1 transition-colors ${isActive ? "text-[#8B1E4F]" : "text-gray-300 group-hover:text-[#8B1E4F]"
+                        }`}
                     />
                   </button>
                 );
@@ -288,11 +278,10 @@ export default function MyAccountPage() {
                   </div>
                   <button
                     onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-sm ${
-                      isEditing
-                        ? "bg-green-500 hover:bg-green-600 text-white"
-                        : "bg-[#52002B] hover:bg-[#8B1E4F] text-white"
-                    }`}
+                    className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-sm ${isEditing
+                      ? "bg-green-500 hover:bg-green-600 text-white"
+                      : "bg-[#52002B] hover:bg-[#8B1E4F] text-white"
+                      }`}
                   >
                     <Pencil className="w-3.5 h-3.5" />
                     {isEditing ? "Save" : "Edit"}
@@ -374,11 +363,10 @@ export default function MyAccountPage() {
                         disabled={!isEditing}
                         value={form.gender}
                         onChange={(e) => handleInputChange("gender", e.target.value)}
-                        className={`w-full px-4 py-3 rounded-xl border text-[14px] text-gray-800 outline-none transition-all appearance-none ${
-                          isEditing
-                            ? "border-[#8B1E4F] ring-1 ring-[#8B1E4F]/20 bg-white cursor-pointer"
-                            : "border-gray-200 bg-gray-50/60 cursor-default text-gray-500"
-                        }`}
+                        className={`w-full px-4 py-3 rounded-xl border text-[14px] text-gray-800 outline-none transition-all appearance-none ${isEditing
+                          ? "border-[#8B1E4F] ring-1 ring-[#8B1E4F]/20 bg-white cursor-pointer"
+                          : "border-gray-200 bg-gray-50/60 cursor-default text-gray-500"
+                          }`}
                       >
                         <option value="">Select Gender</option>
                         <option value="male">Male</option>
@@ -407,11 +395,10 @@ export default function MyAccountPage() {
                         value={form.address}
                         onChange={(e) => handleInputChange("address", e.target.value)}
                         rows={3}
-                        className={`w-full px-4 py-3 rounded-xl border text-[14px] text-gray-800 outline-none transition-all resize-none ${
-                          isEditing
-                            ? "border-[#8B1E4F] ring-1 ring-[#8B1E4F]/20 bg-white"
-                            : "border-gray-200 bg-gray-50/60 cursor-default"
-                        }`}
+                        className={`w-full px-4 py-3 rounded-xl border text-[14px] text-gray-800 outline-none transition-all resize-none ${isEditing
+                          ? "border-[#8B1E4F] ring-1 ring-[#8B1E4F]/20 bg-white"
+                          : "border-gray-200 bg-gray-50/60 cursor-default"
+                          }`}
                         placeholder="Enter your delivery address"
                       />
                     </div>
@@ -498,11 +485,10 @@ function Field({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-full px-4 py-3 rounded-xl border text-[14px] text-gray-800 outline-none transition-all ${
-          editing
-            ? "border-[#8B1E4F] ring-1 ring-[#8B1E4F]/20 bg-white"
-            : "border-gray-200 bg-gray-50/60 cursor-default"
-        }`}
+        className={`w-full px-4 py-3 rounded-xl border text-[14px] text-gray-800 outline-none transition-all ${editing
+          ? "border-[#8B1E4F] ring-1 ring-[#8B1E4F]/20 bg-white"
+          : "border-gray-200 bg-gray-50/60 cursor-default"
+          }`}
         placeholder={placeholder}
       />
     </div>
