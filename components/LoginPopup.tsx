@@ -3,6 +3,7 @@
 import { X, Image as ImageIcon, Edit2 } from "lucide-react";
 import Image from "next/image";
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 interface LoginPopupProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface LoginPopupProps {
 }
 
 const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
+  const router = useRouter();
   const [step, setStep] = useState<"login" | "otp">("login");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState("");
@@ -60,6 +62,16 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
       setError("");
       setOtp(["", "", "", ""]);
     }, 300);
+  };
+
+  const handleVerifyOtp = () => {
+    // Check all 4 digits filled
+    if (otp.every((d) => d !== "")) {
+      // Persist the logged-in phone number so My Account page can read it
+      localStorage.setItem("petoty_phone", phoneNumber);
+      handleClose();
+      router.push("/my-account");
+    }
   };
 
   return (
@@ -171,7 +183,10 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
                   ))}
                 </div>
 
-                <button className="w-full bg-[#52002B] text-white py-3 flex items-center justify-center rounded-lg font-medium text-sm hover:bg-[#8B1E4F] transition shadow-md">
+                <button
+                  onClick={handleVerifyOtp}
+                  className="w-full bg-[#52002B] text-white py-3 flex items-center justify-center rounded-lg font-medium text-sm hover:bg-[#8B1E4F] transition shadow-md disabled:opacity-50"
+                >
                   Verify OTP
                 </button>
 

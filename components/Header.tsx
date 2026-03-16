@@ -111,7 +111,6 @@ const Header = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeServicePet, setActiveServicePet] = useState<PetTab>("Dog");
-  const [selectedService, setSelectedService] = useState<string | null>(null);
 
   // Close dropdown when interacting outside (simplified handling)
   const toggleDropdown = (label: string) => {
@@ -295,7 +294,7 @@ const Header = () => {
                   <button
                     key={pet}
                     onMouseEnter={() => setActiveServicePet(pet)}
-                    onClick={() => { setActiveServicePet(pet); setSelectedService(null); }}
+                    onClick={() => setActiveServicePet(pet)}
                     className={`flex items-center gap-3 px-6 py-4 text-[14px] font-semibold text-left transition-colors ${
                       activeServicePet === pet
                         ? "text-[#8B1E4F] bg-pink-50 border-r-2 border-[#8B1E4F]"
@@ -317,60 +316,27 @@ const Header = () => {
                   <div className="flex flex-wrap gap-8">
                     {servicesByPet[activeServicePet].map((service, idx) => {
                       const Icon = service.icon;
-                      const isSelected = selectedService === service.label;
                       return (
-                        <button
+                        <Link
                           key={idx}
-                          onClick={() => setSelectedService(service.label)}
+                          href={`/services/book?service=${encodeURIComponent(service.label)}&pet=${activeServicePet}`}
+                          onClick={() => setActiveDropdown(null)}
                           className="flex flex-col items-center gap-2 group w-[80px] text-center focus:outline-none"
                         >
                           <div
-                            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 ${
-                              isSelected
-                                ? "bg-[#8B1E4F] text-white scale-110 shadow-md"
-                                : "bg-pink-50 text-[#8B1E4F] group-hover:bg-[#f0d5e3]"
-                            }`}
+                            className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 bg-pink-50 text-[#8B1E4F] group-hover:bg-[#f0d5e3]"
                           >
                             <Icon className="w-6 h-6 stroke-[1.8]" />
                           </div>
                           <span
-                            className={`text-[12.5px] font-semibold leading-snug transition-colors ${
-                              isSelected
-                                ? "text-[#52002B]"
-                                : "text-gray-600 group-hover:text-[#8B1E4F]"
-                            }`}
+                            className="text-[12.5px] font-semibold leading-snug transition-colors text-gray-600 group-hover:text-[#8B1E4F]"
                           >
                             {service.label}
                           </span>
-                        </button>
+                        </Link>
                       );
                     })}
                   </div>
-                </div>
-
-                {/* View Package CTA — shown only after a service is selected */}
-                <div className="mt-6 pt-5 border-t border-gray-100 flex items-center justify-between min-h-[52px]">
-                  {selectedService ? (
-                    <>
-                      <p className="text-[12px] text-gray-500">
-                        Selected: <span className="font-bold text-[#52002B]">{selectedService}</span>
-                      </p>
-                      <Link
-                        href={`/services/book?service=${encodeURIComponent(selectedService)}&pet=${activeServicePet}`}
-                        onClick={() => { setActiveDropdown(null); setSelectedService(null); }}
-                        className="inline-flex items-center gap-2 bg-[#8B1E4F] hover:bg-[#52002B] text-white text-[13px] font-bold px-6 py-2.5 rounded-full transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105"
-                      >
-                        View Package
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </Link>
-                    </>
-                  ) : (
-                    <p className="text-[12px] text-gray-400 italic">
-                      👆 Click a service to see packages
-                    </p>
-                  )}
                 </div>
               </div>
 
