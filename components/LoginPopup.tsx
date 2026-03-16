@@ -77,26 +77,35 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
       {/* Wrapper to hold modal and outside close button */}
-      <div className="relative">
-        {/* Close button */}
+      <div className="relative w-full max-w-[800px] mx-4 sm:mx-8 flex justify-center">
+        {/* Close button (outside on desktop, effectively top-right of modal) */}
         <button
           onClick={handleClose}
-          className="absolute -top-12 right-0 text-white hover:text-gray-300 transition"
+          className="absolute -top-12 right-0 md:-right-4 text-white hover:text-gray-300 transition z-10"
         >
           <X className="w-8 h-8" />
         </button>
 
         {/* Modal content */}
-        <div className="w-[800px] max-w-[95vw] h-[500px] bg-white rounded-[2rem] overflow-hidden flex shadow-2xl">
-          {/* Left Side (Image Placeholder) */}
-          <div className="w-1/2 h-full flex items-center justify-center border-r border-gray-100 p-8">
+        <div className="w-full max-w-[800px] min-h-[400px] md:h-[500px] bg-white rounded-[2rem] overflow-hidden flex shadow-2xl relative">
+          
+          {/* Mobile-only internal close button for safety, visible only on very small screens where outside click is hard */}
+          <button
+            onClick={handleClose}
+            className="md:hidden absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition z-10"
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          {/* Left Side (Image Placeholder) - Hidden on mobile */}
+          <div className="hidden md:flex w-1/2 h-full items-center justify-center border-r border-gray-100 p-8">
             <div className="w-24 h-24 border-2 border-dashed border-gray-400 flex items-center justify-center rounded-xl bg-gray-50">
               <ImageIcon className="w-10 h-10 text-gray-500" strokeWidth={1.5} />
             </div>
           </div>
 
           {/* Right Side (Form) */}
-          <div className="w-1/2 h-full px-12 py-10 flex flex-col items-center">
+          <div className="w-full md:w-1/2 h-full px-8 sm:px-12 py-10 flex flex-col items-center justify-center">
             <div className="mb-2 mt-2">
               <Image
                 src="/images/logos/img_image_3.png"
@@ -110,9 +119,9 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
             {step === "login" ? (
               <>
                 <h2 className="text-xl font-semibold text-gray-900 mb-1 mt-4">Login with OTP</h2>
-                <p className="text-gray-400 text-[13px] mb-8 font-medium">Enter Mobile Number</p>
+                <p className="text-gray-400 text-[13px] mb-6 sm:mb-8 font-medium">Enter Mobile Number</p>
 
-                <div className={`w-full flex items-center border ${error ? 'border-red-500' : 'border-gray-300'} rounded-lg overflow-hidden mb-2 shadow-sm`}>
+                <div className={`w-full flex items-center border ${error ? 'border-red-500' : 'border-gray-300'} rounded-lg overflow-hidden mb-2 shadow-sm focus-within:ring-1 focus-within:ring-[#8B1E4F] transition-all`}>
                   <div className="flex items-center gap-2 px-4 py-3 border-r border-gray-300 bg-gray-50/50">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" className="w-6 h-auto rounded-[2px] shadow-sm shrink-0">
                       <path d="M0 0h60v40H0z" fill="#fff"/>
@@ -144,7 +153,7 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
                   Request OTP
                 </button>
 
-                <div className="mt-auto">
+                <div className="mt-8 sm:mt-auto">
                   <p className="text-[10px] text-gray-400 font-medium leading-tight text-center">
                     I accept that I have read & understood<br />Privacy Policy and T&Cs
                   </p>
@@ -166,7 +175,7 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
                   </div>
                 </div>
 
-                <div className="flex gap-4 mb-6">
+                <div className="flex gap-3 sm:gap-4 mb-6">
                   {[0, 1, 2, 3].map((index) => (
                     <input
                       key={index}
@@ -175,7 +184,7 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
                       }}
                       type="text"
                       maxLength={1}
-                      className="w-14 h-11 border border-gray-200 rounded-lg text-center text-lg font-medium text-gray-800 outline-none focus:border-[#8B1E4F] focus:ring-1 focus:ring-[#8B1E4F] transition-all bg-white shadow-[0_0_2px_rgba(0,0,0,0.05)]"
+                      className="w-12 h-12 sm:w-14 sm:h-14 border border-gray-200 rounded-lg text-center text-lg sm:text-xl font-medium text-gray-800 outline-none focus:border-[#8B1E4F] focus:ring-1 focus:ring-[#8B1E4F] transition-all bg-white shadow-[0_0_2px_rgba(0,0,0,0.05)]"
                       value={otp[index]}
                       onChange={(e) => handleOtpChange(index, e.target.value)}
                       onKeyDown={(e) => handleOtpKeyDown(index, e)}

@@ -111,6 +111,7 @@ const Header = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeServicePet, setActiveServicePet] = useState<PetTab>("Dog");
+  const [mobileActiveDropdown, setMobileActiveDropdown] = useState<string | null>(null);
 
   // Close dropdown when interacting outside (simplified handling)
   const toggleDropdown = (label: string) => {
@@ -121,7 +122,7 @@ const Header = () => {
     <header className="bg-background border-b border-border relative">
       {/* Top Bar */}
       <div
-        className="w-full px-10 py-3 text-sm relative"
+        className="w-full px-4 sm:px-10 py-3 text-sm relative"
         style={{ backgroundColor: "#52002B", color: "#FFFFFF" }}
       >
         <div className="w-full h-full flex items-center justify-between font-medium text-[15px]">
@@ -148,7 +149,7 @@ const Header = () => {
       {/* Main bar */}
 
       {/* <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between border-b border-gray-200"> */}
-      <div className="w-full px-10 py-4 flex items-center justify-between border-b border-gray-200">
+      <div className="w-full px-4 sm:px-10 py-3 sm:py-4 flex items-center justify-between border-b border-gray-200">
 
         {/* Logo */}
         <Link href="/">
@@ -157,7 +158,7 @@ const Header = () => {
             alt="Petoty Logo"
             width={160}
             height={70}
-            className="object-contain cursor-pointer"
+            className="object-contain cursor-pointer w-[110px] sm:w-[160px] h-auto"
           />
         </Link>
 
@@ -175,7 +176,15 @@ const Header = () => {
         </div>
 
         {/* Right Side */}
-        <div className="flex items-center gap-10">
+        <div className="flex items-center gap-3 sm:gap-10">
+          
+          {/* Hamburger Menu Toggle (Mobile Only) */}
+          <button
+            className="md:hidden p-1.5 text-[#8B1E4F] hover:bg-pink-50 rounded-lg transition-colors"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+          </button>
 
           {/* Wishlist */}
           <button className="hidden sm:flex items-center gap-3 text-lg font-semibold text-black hover:text-[#8B1E4F] transition">
@@ -192,13 +201,13 @@ const Header = () => {
             <span>Cart</span>
           </button>
 
-          {/* Login */}
+          {/* Login — icon-only on mobile, full label on sm+ */}
           <button 
              onClick={() => setIsLoginOpen(true)}
-             className="flex items-center gap-3 text-lg font-semibold bg-gray-200 px-6 py-3 rounded-full hover:bg-[#8B1E4F] hover:text-white transition group"
+             className="flex items-center gap-2 text-sm sm:text-lg font-semibold bg-gray-200 px-3 sm:px-6 py-2 sm:py-3 rounded-full hover:bg-[#8B1E4F] hover:text-white transition group"
           >
-            <User className="h-7 w-7 text-[#8B1E4F] group-hover:text-white transition-colors" />
-            <span>Login/Sign Up</span>
+            <User className="h-5 w-5 sm:h-7 sm:w-7 text-[#8B1E4F] group-hover:text-white transition-colors shrink-0" />
+            <span className="hidden sm:inline whitespace-nowrap">Login/Sign Up</span>
           </button>
 
         </div>
@@ -370,10 +379,76 @@ const Header = () => {
                       {item.hasDropdown && <ChevronDown className="h-4 w-4" />}
                     </Link>
                   ) : (
-                    <button className="w-full flex items-center justify-between py-2.5 px-2 text-sm font-semibold text-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors">
-                      {item.label}
-                      {item.hasDropdown && <ChevronDown className="h-4 w-4" />}
-                    </button>
+                    <div className="flex flex-col">
+                      <button 
+                        onClick={() => item.hasDropdown ? setMobileActiveDropdown(prev => prev === item.label ? null : item.label) : undefined}
+                        className={`w-full flex items-center justify-between py-2.5 px-2 text-sm font-semibold rounded-lg transition-colors ${mobileActiveDropdown === item.label ? 'bg-pink-50 text-[#8B1E4F]' : 'text-foreground hover:text-primary hover:bg-muted'}`}
+                      >
+                        {item.label}
+                        {item.hasDropdown && (
+                          <ChevronDown className={`h-4 w-4 transition-transform ${mobileActiveDropdown === item.label ? "rotate-180" : ""}`} />
+                        )}
+                      </button>
+                      
+                      {/* Mobile Dropdown Inner Content */}
+                      {mobileActiveDropdown === item.label && item.hasDropdown && (
+                        <div className="pl-4 pr-2 py-3 border-l-2 border-[#8B1E4F]/20 ml-4 mb-2 mt-1">
+                          
+                          {/* DOGS, CATS, BIRDS */}
+                          {dropdownDataMap[item.label] && (
+                            <div className="flex flex-col gap-6">
+                              {dropdownDataMap[item.label].map((col, idx) => (
+                                <div key={idx}>
+                                  <h4 className="text-[11px] font-bold text-[#8B1E4F] mb-3 uppercase tracking-wider">{col.title}</h4>
+                                  <ul className="space-y-3">
+                                    {col.items.map((link, i) => (
+                                      <li key={i}>
+                                        <a href="#" className="text-[13px] text-gray-600 hover:text-[#8B1E4F] block">{link}</a>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* FISHES */}
+                          {item.label === "FISHES" && (
+                            <ul className="space-y-3">
+                              {fishesDropdownData.map((link, i) => (
+                                <li key={i}>
+                                  <a href="#" className="text-[13px] text-gray-600 hover:text-[#8B1E4F] block">{link}</a>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+
+                          {/* SERVICES */}
+                          {item.label === "SERVICES" && (
+                            <div className="flex flex-col gap-6">
+                              {petTabs.map(pet => (
+                                <div key={pet}>
+                                  <h4 className="text-[13px] font-bold text-[#8B1E4F] mb-3">{pet} Services</h4>
+                                  <ul className="space-y-3">
+                                    {servicesByPet[pet].map((svc, i) => {
+                                      const Icon = svc.icon;
+                                      return (
+                                        <li key={i}>
+                                          <a href="#" className="flex items-center gap-3 text-[13px] text-gray-600 hover:text-[#8B1E4F]">
+                                            <Icon className="h-4 w-4" />
+                                            {svc.label}
+                                          </a>
+                                        </li>
+                                      );
+                                    })}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   )}
                 </li>
               ))}

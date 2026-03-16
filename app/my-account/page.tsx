@@ -9,6 +9,7 @@ import {
   Heart,
   FileText,
   ChevronRight,
+  ChevronDown,
   Camera,
   Pencil,
   LogOut,
@@ -155,11 +156,11 @@ export default function MyAccountPage() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex gap-6 items-start">
+      <div className="max-w-6xl mx-auto px-4 py-6 sm:py-8">
+        <div className="flex flex-col md:flex-row gap-6 items-start">
 
           {/* ────── SIDEBAR ────── */}
-          <aside className="w-[300px] shrink-0 rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-white">
+          <aside className="w-full md:w-[300px] shrink-0 rounded-2xl overflow-hidden shadow-sm border border-gray-100 bg-white">
 
             {/* user card */}
             <div
@@ -250,18 +251,18 @@ export default function MyAccountPage() {
           </aside>
 
           {/* ────── MAIN CONTENT ────── */}
-          <main className="flex-1 min-w-0">
+          <main className="flex-1 w-full min-w-0">
 
             {/* Profile section */}
             {activeSection === "profile" && (
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden w-full">
 
                 {/* header row */}
-                <div className="flex items-center justify-between px-8 pt-8 pb-6 border-b border-gray-100">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-5 sm:px-8 pt-6 pb-5 sm:pt-8 sm:pb-6 border-b border-gray-100">
                   <div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center flex-wrap gap-2 sm:gap-3">
                       <h1
-                        className="text-2xl font-bold text-gray-900"
+                        className="text-xl sm:text-2xl font-bold text-gray-900"
                         style={{ fontFamily: "'Playfair Display', serif" }}
                       >
                         Profile Details
@@ -309,8 +310,8 @@ export default function MyAccountPage() {
                 </div>
 
                 {/* form */}
-                <div className="px-8 pb-10">
-                  <div className="grid grid-cols-2 gap-x-6 gap-y-6">
+                <div className="px-5 sm:px-8 pb-8 sm:pb-10">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6">
 
                     {/* Full Name */}
                     <Field
@@ -359,7 +360,8 @@ export default function MyAccountPage() {
                       <label className="text-[12px] font-semibold text-gray-500 uppercase tracking-wide">
                         Gender
                       </label>
-                      <select
+                      <div className="relative">
+                        <select
                         disabled={!isEditing}
                         value={form.gender}
                         onChange={(e) => handleInputChange("gender", e.target.value)}
@@ -373,7 +375,9 @@ export default function MyAccountPage() {
                         <option value="female">Female</option>
                         <option value="other">Other</option>
                         <option value="prefer-not">Prefer not to say</option>
-                      </select>
+                        </select>
+                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                      </div>
                     </div>
 
                     {/* Alternate Mobile */}
@@ -386,7 +390,7 @@ export default function MyAccountPage() {
                     />
 
                     {/* Address */}
-                    <div className="col-span-2 flex flex-col gap-1.5">
+                    <div className="col-span-1 sm:col-span-2 flex flex-col gap-1.5">
                       <label className="text-[12px] font-semibold text-gray-500 uppercase tracking-wide">
                         Delivery Address
                       </label>
