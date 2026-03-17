@@ -256,9 +256,13 @@ const Header = () => {
                       <ul className="space-y-4">
                         {fishesDropdownData.map((link, linkIdx) => (
                           <li key={linkIdx}>
-                            <a href="#" className="text-[14px] font-medium text-[#8B1E4F] hover:text-[#52002B] tracking-wide transition-colors">
+                            <Link 
+                              href={`/shop?pet=Fish&category=${encodeURIComponent(link)}`}
+                              onClick={() => setActiveDropdown(null)}
+                              className="text-[14px] font-medium text-[#8B1E4F] hover:text-[#52002B] tracking-wide transition-colors"
+                            >
                               {link}
-                            </a>
+                            </Link>
                           </li>
                         ))}
                       </ul>
@@ -280,9 +284,13 @@ const Header = () => {
                   <ul className="space-y-5">
                     {col.items.map((link, linkIdx) => (
                       <li key={linkIdx}>
-                        <a href="#" className="text-[14px] font-medium text-[#C4467E] hover:text-[#52002B] transition-colors">
+                        <Link 
+                          href={`/shop?pet=${activeDropdown.charAt(0) + activeDropdown.slice(1,-1).toLowerCase()}&category=${encodeURIComponent(link)}`}
+                          onClick={() => setActiveDropdown(null)}
+                          className="text-[14px] font-medium text-[#C4467E] hover:text-[#52002B] transition-colors"
+                        >
                           {link}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -403,7 +411,16 @@ const Header = () => {
                                   <ul className="space-y-3">
                                     {col.items.map((link, i) => (
                                       <li key={i}>
-                                        <a href="#" className="text-[13px] text-gray-600 hover:text-[#8B1E4F] block">{link}</a>
+                                        <Link 
+                                          href={`/shop?pet=${item.label.charAt(0) + item.label.slice(1,-1).toLowerCase()}&category=${encodeURIComponent(link)}`}
+                                          onClick={() => {
+                                            setMobileActiveDropdown(null);
+                                            setMobileOpen(false);
+                                          }}
+                                          className="text-[13px] text-gray-600 hover:text-[#8B1E4F] block"
+                                        >
+                                          {link}
+                                        </Link>
                                       </li>
                                     ))}
                                   </ul>
@@ -417,7 +434,16 @@ const Header = () => {
                             <ul className="space-y-3">
                               {fishesDropdownData.map((link, i) => (
                                 <li key={i}>
-                                  <a href="#" className="text-[13px] text-gray-600 hover:text-[#8B1E4F] block">{link}</a>
+                                  <Link 
+                                    href={`/shop?pet=Fish&category=${encodeURIComponent(link)}`}
+                                    onClick={() => {
+                                      setMobileActiveDropdown(null);
+                                      setMobileOpen(false);
+                                    }}
+                                    className="text-[13px] text-gray-600 hover:text-[#8B1E4F] block"
+                                  >
+                                    {link}
+                                  </Link>
                                 </li>
                               ))}
                             </ul>

@@ -11,7 +11,7 @@ const Footer = () => {
         { label: "News & Blog", href: "#" },
         { label: "Careers", href: "#" },
         { label: "Investors", href: "/investors" },
-        { label: "Contact Us", href: "#" },
+        { label: "Contact Us", href: "/contact-us" },
       ],
     },
     {
