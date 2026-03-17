@@ -5,7 +5,7 @@ export default function PawsuranceQuote() {
 
   return (
     // MAIN WRAPPER
-    <section className="w-full bg-white py-16 md:py-24 px-4 md:px-8 font-sans flex justify-center items-center">
+    <section className="w-full bg-white pt-16 md:pt-24 pb-8 px-4 md:px-8 font-sans flex justify-center items-center">
 
       {/* 2-COLUMN GRID CONTAINER */}
       {/* Stacks vertically on mobile (grid-cols-1), side-by-side on computers (md:grid-cols-2) */}

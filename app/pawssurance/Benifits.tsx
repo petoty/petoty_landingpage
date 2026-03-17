@@ -7,35 +7,35 @@ export default function Benifits() {
       {/* IMAGE CONTAINER */}
       {/* FIXED: Changed w-5xl to max-w-5xl. Added w-full so it responds to mobile screens perfectly. */}
       <div className="w-full max-w-5xl px-4 flex justify-center">
-        
+
         <img
           src="/images/Frame 427321214.png"
           alt="What We Require"
           className="w-full h-auto object-contain"
         />
-        
+
       </div>
-      <br/>
+      <br />
       <div className="w-full ">
-        
+
         <img
           src="/images/Frame 427321710.png"
           alt="What We Require"
           className="w-full h-auto object-contain"
         />
-        
+
       </div>
-        <br/>
+
       <div className="w-full ">
-        
+
         <img
           src="/images/Group 179.png"
           alt="What We Require"
           className="w-full h-auto object-contain"
         />
-        
+
       </div>
-      
+
     </section>
   );
 }

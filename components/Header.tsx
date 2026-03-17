@@ -434,10 +434,17 @@ const Header = () => {
                                       const Icon = svc.icon;
                                       return (
                                         <li key={i}>
-                                          <a href="#" className="flex items-center gap-3 text-[13px] text-gray-600 hover:text-[#8B1E4F]">
+                                          <Link 
+                                            href={`/services/book?service=${encodeURIComponent(svc.label)}&pet=${pet}`}
+                                            onClick={() => {
+                                              setMobileActiveDropdown(null);
+                                              setMobileOpen(false);
+                                            }}
+                                            className="flex items-center gap-3 text-[13px] text-gray-600 hover:text-[#8B1E4F]"
+                                          >
                                             <Icon className="h-4 w-4" />
                                             {svc.label}
-                                          </a>
+                                          </Link>
                                         </li>
                                       );
                                     })}

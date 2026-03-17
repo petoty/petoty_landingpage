@@ -25,7 +25,7 @@ export default function Enquire() {
   ];
 
   return (
-    <div className="w-full bg-white px-6 py-16">
+    <div className="w-full bg-white px-6 pt-8 pb-16">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => {
@@ -40,8 +40,8 @@ export default function Enquire() {
               >
                 <div className="flex justify-center mb-4">
                   <div className="w-12 h-12 flex items-center justify-center">
-                    <img 
-                      src={feature.image} 
+                    <img
+                      src={feature.image}
                       alt={feature.title}
                       className="w-full h-full object-contain"
                     />

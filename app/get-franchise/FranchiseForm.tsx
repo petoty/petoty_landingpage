@@ -72,8 +72,17 @@ export default function FranchiseForm() {
             <div className="relative w-full mt-2">
               <label className="absolute -top-3 left-4 bg-[#fdf8f8] px-2 font-['Nunito',sans-serif] text-sm font-bold text-[#8a1551]">Budget</label>
               {/* FIXED: Replaced p-3.5 with h-[54px] and px-4 */}
-              <select className="w-full h-[54px] px-4 border border-gray-300 rounded-lg text-gray-400 focus:outline-none focus:border-[#8a1551] focus:ring-1 focus:ring-[#8a1551] transition-colors bg-transparent appearance-none">
+              {/* <select className="w-full h-[54px] px-4 border border-gray-300 rounded-lg text-gray-400 focus:outline-none focus:border-[#8a1551] focus:ring-1 focus:ring-[#8a1551] transition-colors bg-transparent appearance-none">
                 <option value="" disabled selected>Select your Budget.....</option>
+                <option value="low" className="text-gray-800">Under ₹10 Lakhs</option>
+                <option value="med" className="text-gray-800">₹10 Lakhs - ₹25 Lakhs</option>
+                <option value="high" className="text-gray-800">Above ₹25 Lakhs</option>
+              </select> */}
+              <select
+                defaultValue=""
+                className="w-full h-[54px] px-4 border border-gray-300 rounded-lg text-gray-400 focus:outline-none focus:border-[#8a1551] focus:ring-1 focus:ring-[#8a1551] transition-colors bg-transparent appearance-none pr-10"
+              >
+                <option value="" disabled>Select your Budget.....</option>
                 <option value="low" className="text-gray-800">Under ₹10 Lakhs</option>
                 <option value="med" className="text-gray-800">₹10 Lakhs - ₹25 Lakhs</option>
                 <option value="high" className="text-gray-800">Above ₹25 Lakhs</option>

@@ -23,7 +23,7 @@ const Separator = () => <hr className="border-t border-gray-200 my-8" />;
 const Section = ({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) => (
   <Card className="border-none shadow-none">
     <CardContent className="pt-6">
-      <h2 className="text-[24px] font-bold text-center mb-6 flex items-center justify-center gap-2 text-black">
+      <h2 className="text-[24px] font-bold text-center mb-6 flex items-center justify-center gap-2 text-[#52002D]">
         {icon} {title}
       </h2>
       {children}
@@ -45,10 +45,10 @@ export default function InvestorsPage() {
       <Header />
       <div className="bg-white text-gray-900 font-sans min-h-screen">
         <div className="max-w-3xl mx-auto px-4 pt-20 pb-12 space-y-8">
-          
+
           {/* Hero */}
           <div className="text-center space-y-4">
-            <h1 className="text-[34px] lg:text-[40px] font-bold text-black">📈 Investors</h1>
+            <h1 className="text-[34px] lg:text-[40px] font-bold text-[#52002D]">📈 Investors</h1>
             <p className="text-xl font-semibold text-black">Building India's Most Trusted Pet Care Ecosystem</p>
             <p className="text-[17px] text-gray-600 font-medium">
               Petoty is redefining pet parenting by combining commerce, services, technology, insurance, and offline presence in one scalable platform. We are building the future of pet care in India.
@@ -224,8 +224,8 @@ export default function InvestorsPage() {
 
           {/* Closing */}
           <div className="text-center space-y-3 pb-8 pt-6">
-            <h2 className="text-[22px] font-bold flex items-center justify-center gap-2 text-black">
-              <Rocket className="h-6 w-6 text-black" /> Join Us in Shaping the Future of Pet Care
+            <h2 className="text-[22px] font-bold flex items-center justify-center gap-2 text-[#52002D]">
+              <Rocket className="h-6 w-6 text-[#52002D]" /> Join Us in Shaping the Future of Pet Care
             </h2>
             <p className="text-[17px] font-medium text-gray-700 max-w-xl mx-auto">
               Petoty is not just a business — it's a growing ecosystem with strong fundamentals and massive potential.
